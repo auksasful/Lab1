@@ -42,16 +42,16 @@ public class Demo2_Transform extends BaseGraphics {
         gc.strokeText("Hello",0, 50);
     }
      
-     private void drawSuite3() { 
+      
+     
+      private void drawSuite3() { 
         gc.setFill(randomColor());
         gc.fillRoundRect(0.0, 0.0, 20.0, 400.0, 4.0, 2.0);
         gc.setFill(randomColor());
         double[] polX = {1.13, 2.10, 1.6};
         double[] polY = {2.16,3.14,2.20};
         gc.fillPolygon(polX, polY, 3);
-        gc.setLineWidth(0.6);
-        gc.setStroke(Color.BLACK);
-        gc.strokeText("Hello",0, 50);
+
     }
      
      

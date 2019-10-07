@@ -41,11 +41,11 @@ public class Demo5_MouseShapes extends BaseGraphics {
         nodes.add(new Text(x, y, info));
         // išbandykite pakartotinius figūrų paspaudimus, kokia reakcija?
         shape.setOnMouseClicked(ev -> { // atidenkite šį kodą naujam bandymui
-//                Shape sh = ((Shape)ev.getSource());
-//                sh.setFill(randomColor());
-//                if(sh instanceof Circle)
-//                    ((Circle)sh).setRadius(((Circle)sh).getRadius() + 2);
-//        });
+                Shape sh = ((Shape)ev.getSource());
+                sh.setFill(randomColor());    //duoda random spalva dragable lines figurai
+               if(sh instanceof Circle)
+                   ((Circle)sh).setRadius(((Circle)sh).getRadius() + 2);
+       });
     };
     //*****************************************
     private final EventHandler<MouseEvent> createPolygon = e -> {

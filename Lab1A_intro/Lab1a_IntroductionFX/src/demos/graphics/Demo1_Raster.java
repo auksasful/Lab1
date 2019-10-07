@@ -52,7 +52,7 @@ public class Demo1_Raster extends BaseGraphics {
             x += canvasW / count ;
         }      
     }    
-  
+ 
     
     void drawSetOfCircles(){ 
         int count = Integer.parseInt(tfCount.getText());
@@ -109,6 +109,7 @@ public class Demo1_Raster extends BaseGraphics {
         addButton("Circles",   e -> drawSetOfCircles());
         addButton("Recursive", e -> drawRecursive(0, 0, canvasW, canvasH));
         addButton("Corner Lines",   e -> drawSetOfLinesCorner());
+        addButton("Recursive Down",   e -> drawRecursiveDown(0,0,canvasW, canvasH));
         
         addNewHBox();
     }

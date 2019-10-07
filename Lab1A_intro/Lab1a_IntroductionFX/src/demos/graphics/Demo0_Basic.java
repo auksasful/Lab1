@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Polyline;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -86,6 +87,18 @@ public class Demo0_Basic extends BaseGraphics {
 // https://www.tutorialspoint.com/javafx/2dshapes_polygon    
     private void drawExamples2() { 
         Stage stage = new Stage();
+        
+        Polyline polyline = new Polyline(
+            new double[]{
+                175.0, 45.0, 225.0, 49,0,
+            }
+        );
+        
+        polyline.setFill(Color.BURLYWOOD);
+        polyline.setStroke(Color.BLUE);
+        polyline.setStrokeWidth(10);
+        
+        
          Polygon polygon = new Polygon();  
        
       //Adding coordinates to the polygon 
@@ -98,12 +111,12 @@ public class Demo0_Basic extends BaseGraphics {
           
       //Creating a Group object  
       Group root = new Group(polygon); 
-         
+         root.getChildren().add(polyline);
       //Creating a scene object 
       Scene scene = new Scene(root, 600, 300);  
       
       //Setting title to the Stage 
-      stage.setTitle("Drawing a Polygon"); 
+      stage.setTitle("Drawing a Polygon and Polylines"); 
          
       //Adding scene to the stage 
       stage.setScene(scene); 
@@ -118,20 +131,100 @@ public class Demo0_Basic extends BaseGraphics {
         // kuriuose surašomos taisyklingo daugiakampio koordinatės
         
          Stage stage =  new Stage();
-         Polygon polygon = new Polygon();  
+         Polygon polygon1 = new Polygon();  
        
       //Adding coordinates to the polygon 
-      polygon.getPoints().addAll(new Double[]{  
-         450.0, 150.0, 
-         300.0, 50.0, 
-         150.0, 150.0, 
+      polygon1.getPoints().addAll(new Double[]{  
+         120.0,70.0,
+         77.0,145.0,
+         163.0,145.0,
       }); 
-          
+       
+      
+       Polygon polygon2 = new Polygon();  
+       
+      //Adding coordinates to the polygon 
+      polygon2.getPoints().addAll(new Double[]{  
+         255.0,85.0,
+        185.0,85.0,
+        185.0,155.0,
+        255.0,155.0,
+      }); 
+      
+      Polygon polygon3 = new Polygon();  
+       
+      //Adding coordinates to the polygon 
+      polygon3.getPoints().addAll(new Double[]{  
+        340.0,70.0,
+        292.0,105.0,
+        311.0,160.0,
+        369.0,160.0,
+        388.0,105.0,
+      }); 
+      
+        Polygon polygon4 = new Polygon();  
+      //Adding coordinates to the polygon 
+      polygon4.getPoints().addAll(new Double[]{  
+        485.0,77.0,
+        435.0,77.0,
+        410.0,120.0,
+        435.0,163.0,
+        485.0,163.0,
+        510.0,120.0,
+      }); 
+      
+       Polygon polygon5 = new Polygon();  
+      //Adding coordinates to the polygon 
+      polygon5.getPoints().addAll(new Double[]{  
+        580.0,70.0,
+        541.0,89.0,
+        531.0,131.0,
+        558.0,165.0,
+        602.0,165.0,
+        629.0,131.0,
+        619.0,89.0,
+      }); 
+      
+       Polygon polygon6 = new Polygon();  
+      //Adding coordinates to the polygon 
+      polygon6.getPoints().addAll(new Double[]{  
+            719.0,74.0,
+            681.0,74.0,
+            654.0,101.0,
+            654.0,139.0,
+            681.0,166.0,
+            719.0,166.0,
+            746.0,139.0,
+            746.0,101.0,
+      }); 
+      
+       Polygon polygon7 = new Polygon();  
+      //Adding coordinates to the polygon 
+      polygon7.getPoints().addAll(new Double[]{  
+        820.0,70.0,
+        788.0,82.0,
+        771.0,111.0,
+        777.0,145.0,
+        803.0,167.0,
+        837.0,167.0,
+        863.0,145.0,
+        869.0,111.0,
+        852.0,82.0,
+      }); 
+      
+      
+      
       //Creating a Group object  
-      Group root = new Group(polygon); 
+      Group root = new Group(polygon1); 
+      root.getChildren().add(polygon2);
+      root.getChildren().add(polygon3);
+      root.getChildren().add(polygon4);
+      root.getChildren().add(polygon5);
+      root.getChildren().add(polygon6);
+      root.getChildren().add(polygon7);
          
       //Creating a scene object 
-      Scene scene = new Scene(root, 600, 300);  
+      Scene scene = new Scene(root, 900, 300);  
       
       //Setting title to the Stage 
       stage.setTitle("Daugiakampis"); 
