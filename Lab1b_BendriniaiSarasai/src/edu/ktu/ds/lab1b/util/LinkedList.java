@@ -56,7 +56,80 @@ public class LinkedList<E extends Comparable<E>>
         size++;
         return true;
     }
+    
 
+   public void addLast(E e){
+        if (e == null) {
+            throw new NullPointerException();
+        }
+        if (first == null) {
+            first = new Node<>(e, first);
+            last = first;
+        } else {
+            Node<E> e1 = new Node(e, null);
+            last.next = e1;
+            last = e1;
+        }
+        size++;
+   
+   }
+   
+   
+   public boolean removeLastOccurrence(Object o){
+       Node lastOccurence = null;
+       for (Node curr = first;
+      			curr != null; 
+      			curr = curr.next) {
+           if(curr.element == o){
+                lastOccurence = curr;
+           }
+    }
+       
+       if(lastOccurence != null){  
+           //delete last
+           Node temp = lastOccurence.next;
+            // jei del yra pirmas – keičiame first
+            if (lastOccurence == first) first = temp; 
+            else { // reikia rasti ankstesnį pred
+                Node pred = first;
+                while (pred.next != lastOccurence) 
+                    pred = pred.next;
+                    pred.next = temp;  // pašalinimas !!!
+                }
+           size--;
+           return true;
+       }
+       else{
+           return false;
+       }
+       
+   }
+   
+   
+   public List<E> subList(int fromIndex, int toIndex) throws CloneNotSupportedException{
+       if(fromIndex < 0 || toIndex > size || toIndex <= fromIndex){
+           return null;
+       }
+       
+    LinkedList<E> n = (LinkedList<E>) super.clone();
+    
+    Node<E> startNode = n.first;
+    int counter=0;
+    int removedCounter = 0;
+    while(startNode!=null){
+        
+         if(counter<fromIndex || counter>toIndex - 1){
+               remove(counter - removedCounter);
+               removedCounter++;
+         }
+         startNode=startNode.next;
+         counter++;
+    }
+    return n;
+   }
+   
+   
+ 
     /**
      * Įterpia elementą prieš k-ąją poziciją
      *
@@ -72,21 +145,42 @@ public class LinkedList<E extends Comparable<E>>
         if (k < 0 || k >= size) {
             return false;
         }
-        throw new UnsupportedOperationException("Studentams reikia realizuoti add(int k, E e)");
+        addM(k, e);
+        return true;        
     }
     
     /**
      *
      * @param k
      * @param e
+     * Metodas add, kuri reikia prideti
      */
-    public void addM(int k, E e) {
-        this.current = this.first;
-        for(int i = 0; i < k; i++){
-            this.current = current.next;
+    private void addM(int k, E e) {
+          Node<E> newNode = new Node(e, null);
+ 
+        // insert as the new head?
+        if (k == 0) {
+            // The 1st case.
+            newNode.next = first;
+            first = newNode;
+        } else {
+            // The 2nd case.
+            // start from the head:
+            Node<E> node = first;
+            // find position just before the expected one:
+            while (--k > 0) {
+                node = node.next;
+            }
+            // insert the new node:
+            newNode.next = node.next;
+            node.next = newNode;
         }
+        size++;
       
     }
+    
+    
+      
 
     /**
      *
@@ -142,7 +236,21 @@ public class LinkedList<E extends Comparable<E>>
      */
     @Override
     public E set(int k, E e) {
-        throw new UnsupportedOperationException("Studentams reikia realizuoti set(int k, E e)");
+        
+        //Node<E> temp = null;
+        int counter = 0;
+       for (Node curr = first;
+      			curr != null; 
+      			curr = curr.next) {
+           if(counter == k){
+               curr.element = e;
+           }
+            counter++;
+        }
+        //current.next = (Node<E>) e;
+        
+        return e;
+        //throw new UnsupportedOperationException("Studentams reikia realizuoti set(int k, E e)");
     }
 
     /**
@@ -170,14 +278,88 @@ public class LinkedList<E extends Comparable<E>>
      */
     @Override
     public E remove(int k) {
-        throw new UnsupportedOperationException("Studentams reikia realizuoti remove(int k)");
+         current = first;
+         Node parent = null;
+         int index = 0;
+    
+        while (current != null && index < k) {
+            parent = current;
+            current = current.next;
+
+            index++;
+        }
+
+        if (current != null && parent == null) {
+            // Delete head.
+            if (current.next != null) {
+                // Move head to next value.
+                first = current.next;
+            }
+            else {
+                // Just set the head to null.
+                first = null;
+            }
+        }
+        else if (current != null) {
+            // Delete current, link parent to child..
+            if(parent.next != null)
+            parent.next = current.next;
+        }
+        size--;
+        return first.element;
     }
     
-   /* @Override
-    public void addLast(E e){
+    
+  
+    public boolean addAll(int index, LinkedList<?extends E> c){
         
-    }*/
-
+        if(c.size == 0 || index > size || c == null)
+            return false;
+        
+        boolean last;
+        if(index != size - 1){
+            last = false;
+        }
+        else{
+            last = true;
+        }
+        
+        if(size > 0){
+       int counter = 0;
+            for (Node curr = first;
+                             curr != null; 
+                             curr = curr.next) {
+                if(counter == index){
+                     for (Node curr1 = c.first;
+                             curr1 != null; 
+                             curr1 = curr1.next) {
+                         if(!last){
+                            add(counter, (E) curr1.element);
+                            counter++;
+                         }
+                         else{
+                          addLast((E) curr1.element);
+                         }
+                     }
+                     break;
+                }
+                 counter++;
+             }
+        }
+        else{
+            for (Node curr1 = c.first;
+                             curr1 != null; 
+                             curr1 = curr1.next) {
+                         addLast((E) curr1.element);
+                     }
+        }
+        
+        return true;
+    }
+    
+    
+    
+    
     /**
      *
      * @return sąrašo kopiją
@@ -233,6 +415,9 @@ public class LinkedList<E extends Comparable<E>>
             e1.element = (E) a[i++];
         }
     }
+    
+    
+  
 
     /**
      * Rikiavimas Arrays klasės metodu sort pagal komparatorių
@@ -367,5 +552,10 @@ public class LinkedList<E extends Comparable<E>>
             }
             return e;
         }
+        
+        
     } // klasės Node pabaiga
+    
+    
+    
 }

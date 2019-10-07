@@ -60,7 +60,7 @@ public class Phone implements Parsable<Phone>{
             brand = ed.next();
             model = ed.next();
             year = ed.nextInt();
-            screenSize = ed.nextInt();
+            screenSize = ed.nextDouble();
             setPrice(ed.nextDouble());
         } catch (InputMismatchException e) {
             Ks.ern("Blogas duomenų formatas apie telefoną -> " + data);
@@ -68,6 +68,31 @@ public class Phone implements Parsable<Phone>{
             Ks.ern("Trūksta duomenų apie telefoną -> " + data);
         }
     }
+    
+    
+    
+     public String validate() {
+        String error = "";
+        int currentYear = LocalDate.now().getYear();
+        if (year < minYear || year > currentYear) {
+            error = "Netinkami gamybos metai, turi būti ["
+                    + minYear + ":" + currentYear + "]";
+        }
+        if (price < minPrice || price > maxPrice) {
+            error += " Kaina už leistinų ribų [" + minPrice
+                    + ":" + maxPrice + "]";
+        }
+        return error;
+    }
+
+    @Override
+    public String toString() {  // surenkama visa reikalinga informacija
+        return String.format("%-8s %-8s %4d %8.1f %8.1f %s",
+                brand, model, year, screenSize, price, validate());
+    }
+    
+    
+    
    
      // keisti bus galima tik kainą - kiti parametrai pastovūs
     public void setPrice(double price) {
